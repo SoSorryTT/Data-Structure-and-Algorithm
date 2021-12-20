@@ -1,38 +1,56 @@
 #include <iostream>
+
 using namespace std;
-int* insertX(int n, int arr[], 
-             int x, int pos) 
-{ 
-    int i; 
-    n++; 
-    for (i = n; i >= pos; i--) 
-        arr[i] = arr[i - 1]; 
-    arr[pos - 1] = x; 
-  
-    return arr; 
-}
-int find_index(int n, int arr[], int x){
-    for(int i =0; i < n; i++){
-        if(arr[i] == x){
-            return i;
-        }
-    }
-}
-int main(){
-    int n,m;
+
+typedef int valueType;
+
+struct ListNode {
+    valueType color;
+    valueType id;
+    ListNode* next;
+    ListNode(valueType color, valueType id, ListNode* next=0)
+            :color(color), id(id), next(next) {}
+};
+
+int main() {
+    int n, m;
+    int id = 1;
+    int next_index;
+    int color;
+
+
+
     cin >> n >> m;
-    int x[n+m];
-    for (int i = 0; i< n; i++){
-        cin >> x[i];
-        x[i] = i+1;
+    if(n > 100000) {
+        n = 100000;
     }
-    for (int i = n ;i<n+m; i++){
-        int ball,pos;
-        cin >> ball >> pos;
-        insertX(n+m,x,i+1,find_index(n+m,x,pos)+2);
-        
+    if(m > 100000) {
+        m = 100000;
     }
-    for (int i = 0; i < n+m; i++){
-        cout << x[i] << endl;
+
+    ListNode *ball[m + n];
+    auto *run = new ListNode(0,0);
+    for (int i = 0; i < m; i++) {
+        cin >> color ;
+        auto *new_node = new ListNode(color, id);
+        id++;
+        ball[id - 1] = new_node;
+        run->next = new_node;
+        run = new_node;
+    }
+
+    for (int i = 0; i < n; i++) {
+        cin >> color >> next_index;
+        auto *new_node = new ListNode(color, id);
+        id++;
+        ball[id-1] = new_node;
+        new_node->next = ball[next_index]->next;
+        ball[next_index]-> next = new_node;
+
+    }
+    ListNode *head = ball[1];
+    for (int i = 0; i < m + n; ++i) {
+    cout << head->id << endl;
+    head = head->next;
     }
 }

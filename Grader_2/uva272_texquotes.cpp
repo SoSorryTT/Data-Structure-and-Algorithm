@@ -1,25 +1,27 @@
 #include <iostream>
-using namespace std;
-int main(){
-    bool state = true;
-    string line;
-    while(getline(cin,line)){
-        for(auto i : line){
-            if(i == '"'){
-                if(state){
-                    cout << "``";
-                    state = false;
-                }
-                else{
-                    cout << "''";
-                    state = true;
-                }
 
+using namespace std;
+
+int main()
+{
+    string text;
+    bool open = true;
+    while (getline(cin, text))
+    {
+        for (int i=0 ; i < text.length() ; ++i)
+        {
+            if (text[i] == '"' && open)
+            {
+                text.replace(i,1,"``");
+                open = false;
             }
-            else{
-                cout << i ;
+            else if (text[i] == '"' && !open)
+            {
+                text.replace(i,1,"''");
+                open = true;
             }
+
         }
-        cout << endl;
+        cout << text << endl;
     }
 }

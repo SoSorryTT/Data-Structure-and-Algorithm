@@ -1,28 +1,24 @@
 #include <iostream>
+#include <cstring>
+
 using namespace std;
+
 int main(){
-    int num;
-    string line;
-    while (true){
-        string temp;
-        cin >> num;
-        if (num == 0){
+    char str[101];
+    int g;
+    while(true) {
+        cin >> g;
+        if(g != 0){
+            scanf("%s", str) ;
+            int len = strlen(str); // str length
+            int group = len/g; // num of group
+            for(int i=0 ; i < len ; i+=group) {
+                for(int j=i+group-1; j >= i ; j--) // start from last index of the group
+                    putchar(str[j]);
+            }
+            puts("");
+        } else {
             break;
         }
-        cin >> line;
-        int n = line.length()/num;
-        int count = 0;
-        int count2 = n-1;
-        int round = 0;
-        while(temp.length() != line.length()){
-            round++;
-            temp += line[count2];
-            if(count2 == count*n){
-                count+=1;
-                count2 = count*n + n;
-            }
-            count2-=1;
-        }
-        cout << temp << endl;
     }
 }
