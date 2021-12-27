@@ -2,79 +2,78 @@
 #include <cstdio>
 using namespace std;
 
-int const MAX = 101;
-int const DFS_WHITE = -1;
-int DFS_BLACK = 1;
-int matrix[MAX][MAX], dfs_matrix[MAX][MAX], grid;
-bool flag;
+int ship_black = 1;
+int const ship_white = -1;
+int const full = 101;
+int use_matrix[full][full];
+int ship_matrix[full][full];
+int grate;
+bool banner;
 
-void initGraph()
-{
-    string str = "", tmp;
-    for (int a = 0; a < grid; a++)
-    {
-        cin >> tmp;
-        str += tmp;
+void initGraph() {
+    int want_index = 0;
+    string string = "", store;
+    for (int a = 0; a < grate; a++) {
+        cin >> store;
+        string += store;
     }
 
-    int index = 0;
-    for (int x = 0; x < grid; x++)
-        for (int y = 0; y < grid; y++, index++)
+    for (int x = 0; x < grate; x++) {
+        for (int y = 0; y < grate; y++, want_index++)
         {
-            matrix[x][y] = str[index];
-            if (matrix[x][y] == 'x' || matrix[x][y] == '@')
-                dfs_matrix[x][y] = DFS_WHITE;
+            use_matrix[x][y] = string[want_index];
+            if (use_matrix[x][y] == 'x' || use_matrix[x][y] == '@')
+                ship_matrix[x][y] = ship_white;
             else
-                dfs_matrix[x][y] = 0;
+                ship_matrix[x][y] = 0;
         }
+    }
 }
 
-void dfs(int x, int y)
-{
-    if (matrix[x][y] == 'x')
-        flag = true;
-    dfs_matrix[x][y] = DFS_BLACK;
-    int a = x, b = y;
-    if (a - 1 >= 0)
-    {
-        if (dfs_matrix[a - 1][b] == DFS_WHITE)
+void dfs(int x, int y) {
+    if (use_matrix[x][y] == 'x')
+        banner = true;
+    ship_matrix[x][y] = ship_black;
+    int a = x;
+    int b = y;
+    if (a - 1 >= 0) {
+        if (ship_matrix[a - 1][b] == ship_white)
             dfs(a - 1, b);
     }
-    if (a + 1 < grid)
-    {
-        if (dfs_matrix[a + 1][b] == DFS_WHITE)
+    if (a + 1 < grate) {
+        if (ship_matrix[a + 1][b] == ship_white)
             dfs(a + 1, b);
     }
-    if (b - 1 >= 0 && dfs_matrix[a][b - 1] == DFS_WHITE)
+    if (b - 1 >= 0 && ship_matrix[a][b - 1] == ship_white)
         dfs(a, b - 1);
-    if (b + 1 < grid && dfs_matrix[a][b + 1] == DFS_WHITE)
+    if (b + 1 < grate && ship_matrix[a][b + 1] == ship_white)
         dfs(a, b + 1);
 }
 
 int main()
 {
-    int casos, ships;
+    int casos;
+    int boats;
     cin >> casos;
 
     for (int a = 1; a <= casos; a++)
     {
-        cin >> grid;
+        cin >> grate;
         initGraph();
-        ships = 0;
+        boats = 0;
 
-        for (int x = 0; x < grid; x++)
+        for (int x = 0; x < grate; x++)
         {
-            for (int y = 0; y < grid; y++)
+            for (int y = 0; y < grate; y++)
             {
-                if ((matrix[x][y] == 'x' || matrix[x][y] == '@') && dfs_matrix[x][y] == DFS_WHITE)
-                {
-                    flag = false;
+                if ((use_matrix[x][y] == 'x' || use_matrix[x][y] == '@') && ship_matrix[x][y] == ship_white) {
+                    banner = false;
                     dfs(x, y);
-                    if (flag == true)
-                        ships++;
+                    if (banner == true)
+                        boats += 1;
                 }
             }
         }
-        printf("Case %d: %d\n", a, ships);
+        printf("Case %d: %d\n", a, boats);
     }
 }

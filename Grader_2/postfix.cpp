@@ -8,42 +8,33 @@ using namespace std;
 int main()
 {
     string buffer;
-
     stack<double> operands;
 
     do
     {
         cin >> buffer;
-        if (buffer.at(0) == '=')
-        {
+        if (buffer.at(0) == '=') {
             break;
-        }
-        else if ((buffer.at(0) >= '0') && (buffer.at(0) <= '9'))
-        {
+        } else if ((buffer.at(0) >= '0') && (buffer.at(0) <= '9')) {
             double val = stod(buffer);
             operands.push(val);
-        }
-        else
-        {
-            double temp[2];
-            double result = 0;
-            temp[1] = operands.top();
+        } else {
+            double store[2];
+            double total_use = 0;
+            store[1] = operands.top();
             operands.pop();
-            temp[0] = operands.top();
+            store[0] = operands.top();
             operands.pop();
-            if (buffer.at(0) == '+'){
-                result = temp[0] + temp[1];
+            if (buffer.at(0) == '+') {
+                total_use = store[0] + store[1];
+            } else if (buffer.at(0) == '-') {
+                total_use = store[0] - store[1];
+            } else if (buffer.at(0) == '*') {
+                total_use = store[0] * store[1];
+            } else if (buffer.at(0) == '/') {
+                total_use = store[0] / store[1];
             }
-            else if (buffer.at(0) == '-'){
-                result = temp[0] - temp[1];
-            }
-            else if (buffer.at(0) == '*'){
-                result = temp[0] * temp[1];
-            }
-            else if (buffer.at(0) == '/'){
-                result = temp[0] / temp[1];
-            }
-            operands.push(result);
+            operands.push(total_use);
         }
     } while (true);
     cout << fixed << setprecision(4) << operands.top() << endl;

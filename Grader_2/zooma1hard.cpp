@@ -5,52 +5,57 @@ using namespace std;
 typedef int valueType;
 
 struct ListNode {
-    valueType color;
-    valueType id;
-    ListNode* next;
-    ListNode(valueType color, valueType id, ListNode* next=0)
-            :color(color), id(id), next(next) {}
+    valueType colour;
+    valueType id_use;
+    ListNode* forward_one;
+    ListNode(valueType colour, valueType id_use, ListNode* forward_one=0)
+            :colour(colour), id_use(id_use), forward_one(forward_one) {}
 };
 
-int main() {
-    int n, m;
-    int id = 1;
-    int next_index;
-    int color;
+int main()
+{
+    int num;
+    int num2;
+    int id_use = 1;
+    int index_next_one;
+    int colour;
 
-
-
-    cin >> n >> m;
-    if(n > 100000) {
-        n = 100000;
+    cin >> num >> num2;
+    if(num > 100000)
+    {
+        num = 100000;
     }
-    if(m > 100000) {
-        m = 100000;
+    if(num2 > 100000)
+    {
+        num2 = 100000;
     }
 
-    ListNode *ball[m + n];
+    ListNode *ball_use[num2 + num];
     auto *run = new ListNode(0,0);
-    for (int i = 0; i < m; i++) {
-        cin >> color ;
-        auto *new_node = new ListNode(color, id);
-        id++;
-        ball[id - 1] = new_node;
-        run->next = new_node;
+    for (int i = 0; i < num2; i++)
+    {
+        cin >> colour ;
+        auto *new_node = new ListNode(colour, id_use);
+        id_use += 1;
+        ball_use[id_use - 1] = new_node;
+        run->forward_one = new_node;
         run = new_node;
     }
 
-    for (int i = 0; i < n; i++) {
-        cin >> color >> next_index;
-        auto *new_node = new ListNode(color, id);
-        id++;
-        ball[id-1] = new_node;
-        new_node->next = ball[next_index]->next;
-        ball[next_index]-> next = new_node;
-
+    for (int i = 0; i < num; i++)
+    {
+        cin >> colour >> index_next_one;
+        auto *new_node = new ListNode(colour, id_use);
+        id_use += 1;
+        ball_use[id_use-1] = new_node;
+        new_node->forward_one = ball_use[index_next_one]->forward_one;
+        ball_use[index_next_one]-> forward_one = new_node;
     }
-    ListNode *head = ball[1];
-    for (int i = 0; i < m + n; ++i) {
-    cout << head->id << endl;
-    head = head->next;
+
+    ListNode *HEAD = ball_use[1];
+    for (int i = 0; i < num2 + num; ++i)
+    {
+        cout << HEAD->id_use << endl;
+        HEAD = HEAD->forward_one;
     }
 }

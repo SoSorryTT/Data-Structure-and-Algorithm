@@ -1,24 +1,28 @@
 #include <iostream>
 #include <map>
 using namespace std;
-int main(){
-    int n,m;
-    map<int,int> temp;
-    cin >> n;
-    for (int i = 0; i<n; i++){
-        cin >> m;
-        if (temp.find(m) != temp.end()){
-            temp[m] += 1;
+
+int main()
+{
+    int number, M;
+    int count = 0;
+
+    map<int,int> use;
+    cin >> number;
+
+    for (int i = 0; i<number; i++) {
+        cin >> M;
+        if (use.find(M) != use.end()) {
+            use[M] += 1;
         }
         else{
-            temp[m] = 1;
+            use[M] = 1;
         }
-
     }
-    int count = 0;
-    for (auto j : temp){
-        if (j.second >= 3){
-            count++;
+
+    for (auto check_auto : use) {
+        if (check_auto.second >= 3) {
+            count += 1;
         }
     }
     cout << count << endl;

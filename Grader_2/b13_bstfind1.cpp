@@ -1,22 +1,31 @@
 #include <iostream>
 #include <set>
 using namespace std;
-int main(){
-    int n;
-    cin >> n;
-    set<int> result;
-    for (int i = 0; i < n; i++){
-        int m,k;
-        cin >> m >> k;
-        if (m == 2){
-            int temp = 0;
-            if (result.find(k) != result.end()){
-                temp = 1;
+
+int main() 
+{
+    int num;
+    cin >> num;
+    set<int> answer;
+
+    for (int i = 0; i < num; i++){
+        int M, K;
+        cin >> M >> K;
+
+        if (M == 2) {
+            int tmp = 0;
+
+            if (answer.find(K) != answer.end()) {
+                tmp = 1;
             }
-            cout << temp << endl;
+
+            cout << tmp << endl;
+
         }
-        if (m == 1){
-            result.insert(k);
+
+        if (M == 1){
+            answer.insert(K);
+            
         }
     }
 }

@@ -2,20 +2,22 @@
 # include <stdlib.h>
 using namespace std;
 
-int main(){
-    int n;
-    int data[1000];
-    int count = 0;
-    cin >> n;
+int main()
+{
     int num;
-    for (int i = 0; i<n; i++){
-        cin >> num;
-        int temp = (((((num*567)/9)+7492)*235)/47)-498;
-        data[i] = (abs(temp)/10)%10;
-        count ++;
+    int store[1000];
+    int count_num = 0;
+    int number;
+    cin >> num;
+    for (int i = 0; i<num; i++)
+    {
+        cin >> number;
+        int data = (((((number*567)/9)+7492)*235)/47)-498;
+        store[i] = (abs(data)/10)%10;
+        count_num += 1;
     }
-    for(int i =0; i<count;i++){
-        cout << data[i] <<endl;
+    for(int i =0; i<count_num; i++)
+    {
+        cout << store[i] <<endl;
     }
-
 }

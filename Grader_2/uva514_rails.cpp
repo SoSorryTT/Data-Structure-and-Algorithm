@@ -3,40 +3,49 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     stack<int> station;
     int train[1001];
     int n;
-    while (scanf("%d", &n), n) {
+    while (scanf("%d", &n), n)
+    {
         bool is_break = false;
-        while (!is_break) {
+        while (!is_break)
+        {
             station = stack<int>();
-            for (int i = 0; i < n; ++i) {
+            for (int i = 0; i < n; ++i)
+            {
                 cin >> train[i];
-                if (train[i] == 0) {
+                if (train[i] == 0)
+                {
                     is_break = true;
                     break;
                 }
             }
             if (is_break) continue;
             int j = 1;
-            bool ok = true;
-            for (int i = 0; i < n; ++i) {
-                while (j <= n && (station.empty() || station.top() != train[i])) {
+            bool use = true;
+            for (int i = 0; i < n; ++i)
+            {
+                while (j <= n && (station.empty() || station.top() != train[i]))
+                {
                     station.push(j);
-                    j++;
+                    j += 1;
                 }
-                if (station.top() == train[i]) {
+                if (station.top() == train[i])
+                {
                     station.pop();
                     continue;
-                } else {
-                    ok = false;
+                }
+                else
+                {
+                    use = false;
                     break;
                 }
             }
-            cout << (ok ? "Yes" : "No") << endl;
+            cout << (use ? "Yes" : "No") << endl;
         }
         cout << endl;
     }
-    return 0;
 }

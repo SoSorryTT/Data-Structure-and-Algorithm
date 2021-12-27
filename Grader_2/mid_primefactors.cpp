@@ -3,31 +3,33 @@
 #include <set>
 
 using namespace std;
-set<int> primeFactors(int n)  
+
+set<int> primeFactors(int number)  
 {  
-    set<int> result;
-    while (n % 2 == 0)  
+    set<int> answer;
+    while (number % 2 == 0)  
     {  
-        result.insert(2);  
-        n = n/2;  
-    }  
-  
-    for (int i = 3; i <= sqrt(n); i = i + 2)  
-    {  
-        while (n % i == 0)  
+        answer.insert(2);  
+        number = number/2;  
+    }
+
+    for (int i=3; i <= sqrt(number); i = i + 2) {  
+        while (number % i == 0)  
         {  
-            result.insert(i);  
-            n = n/i;  
+            answer.insert(i);  
+            number = number/i;  
         }  
     }  
-    if (n > 2){  
-        result.insert(n);
+    if (number > 2) {  
+        answer.insert(number);
     }
-    return result;  
+    return answer;  
 }
-int main(){
-    int n;
-    cin >> n;
-    set<int> result = primeFactors(n);
-    cout << result.size() << endl;
+
+int main()
+{
+    int number;
+    cin >> number;
+    set<int> answer = primeFactors(number);
+    cout << answer.size() << endl;
 }

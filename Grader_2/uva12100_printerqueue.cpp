@@ -6,11 +6,11 @@
 using namespace std;
 
 struct Job {
-    int mPriority;
-    bool mIsMyJob;
-    Job(int priority, bool isMyJob) {
-        mPriority = priority;
-        mIsMyJob = isMyJob;
+    int m_priority;
+    bool m_is_my_Job;
+    Job(int priority, bool is_my_Job) {
+        m_priority = priority;
+        m_is_my_Job = is_my_Job;
     }
 };
 
@@ -19,45 +19,51 @@ int cmp(int a, int b) {
 }
 
 int main(int argc, const char *argv[]) {
-    int cases, jobs, jobPosition, priority;
+    int event;
+    int job;
+    int job_Position;
+    int priority;
     queue<Job> queue;
-    vector<int> tmpQueue;
-    cin >> cases;
-    while(cases--) {
-        cin >> jobs >> jobPosition;
-        for(int i = 0; i < jobs; ++i) {
+    vector<int> tmp_queue;
+    cin >> event;
+    while(event--) {
+        cin >> job >> job_Position;
+        for(int i = 0; i < job; ++i) {
             cin >> priority;
-            if(i == jobPosition) {
+            if(i == job_Position) {
                 queue.push(Job(priority, true));
-            } else {
+            } 
+            else
+            {
                 queue.push(Job(priority, false));
             }
-            tmpQueue.push_back(priority);
+            tmp_queue.push_back(priority);
         }
 
-        sort(tmpQueue.begin(), tmpQueue.end(), cmp);
+        sort(tmp_queue.begin(), tmp_queue.end(), cmp);
 
-        int minutes = 0;
-        auto it = tmpQueue.begin();
+        int min = 0;
+        auto it = tmp_queue.begin();
         while(true) {
             Job job = queue.front();
             queue.pop();
-            if(job.mPriority == *it) {
-                minutes++;
-                it++;
-                if(job.mIsMyJob) {
+            if(job.m_priority == *it) {
+                min += 1;
+                it += 1;
+                if(job.m_is_my_Job) {
                     break;
                 }
-            } else {
+            }
+            else
+            {
                 queue.push(job);
             }
-
         }
 
-        cout << minutes << endl;
+        cout << min << endl;
 
         while(!queue.empty()) queue.pop();
-        tmpQueue.clear();
+        tmp_queue.clear();
 
     }
 

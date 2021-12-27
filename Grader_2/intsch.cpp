@@ -2,28 +2,30 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-int main(){
-    vector<pair<int,int>> temp;
-    int n;
-    cin >> n;
-    for (int i = 0;i<n;i++){
-        int x,y;
-        cin >> x >> y;
-        temp.push_back(make_pair(y,x));
-    }
-    sort(temp.begin(),temp.end());
+
+int main()
+{
+    vector<pair<int,int>> store;
+    int num;
     int count = 1;
-    int start = temp[0].second;
-    int end = temp[0].first;
-    for(auto i : temp){
-        if (i.second != start){
-            if(i.second >= end){
-                count++;
-                start = i.second;
-                end = i.first;
+    cin >> num;
+    for (int i = 0; i<num; i++) {
+        int x, y;
+        cin >> x >> y;
+        store.push_back(make_pair(y, x));
+    }
+    sort(store.begin(),store.end());
+    int first = store[0].second;
+    int last = store[0].first;
+
+    for(auto check_auto : store) {
+        if (check_auto.second != first) {
+            if(check_auto.second >= last) {
+                count += 1;
+                first = check_auto.second;
+                last = check_auto.first;
             }
         }
     }
-    
     cout << count << endl;
 }

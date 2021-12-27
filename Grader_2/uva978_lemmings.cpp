@@ -6,102 +6,101 @@ typedef queue<int> qi;
 typedef multiset<int, greater<int> > msi;
 typedef multiset<int, greater<int> >::iterator msii;
 
-int main(void)
-{
+int main(void) {
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
 
-	int testCases;
-	cin >> testCases;
+	int test_cases;
+	cin >> test_cases;
 
-	while(testCases--)
+	while(test_cases--)
 	{
-		int blue;
-		int green;
-		int battlefield;
-		msi bluePower;
-		msi greenPower;
+		int blue_color;
+		int green_color;
+		int field;
+		msi blue_power;
+		msi green_power;
 
-		cin >> battlefield >> green >> blue;
+		cin >> field >> green_color >> blue_color;
 		
-		for(int i = 0; i < green; ++i)
-		{
-			int power;
-			cin >> power;
-			greenPower.insert(power);
+		for(int i = 0; i < green_color; ++i) {
+			int energy;
+			cin >> energy;
+			green_power.insert(energy);
 		}
 
-		for(int i = 0; i < blue; ++i)
-		{
-			int power;
-			cin >> power;
-			bluePower.insert(power);
+		for(int i = 0; i < blue_color; ++i) {
+			int energy;
+			cin >> energy;
+			blue_power.insert(energy);
 		}
 
-		while(!bluePower.empty() && !greenPower.empty())
-		{
-			qi blueFighters;
-			qi greenFighters;
-			int minSize = min(battlefield, (int)min(bluePower.size(), greenPower.size()));
+		while(!blue_power.empty() && !green_power.empty()) {
+			qi blue_fighters;
+			qi green_fighters;
+			int min_scale = min(field, (int)min(blue_power.size(), green_power.size()));
 			
-			for(int i = 0; i < minSize; ++i)
-			{
-				msii b = bluePower.begin();
-				msii g = greenPower.begin();
+			for(int i = 0; i < min_scale; ++i) {
+				msii Blue = blue_power.begin();
+				msii Green = green_power.begin();
 
-				blueFighters.push(*b);
-				greenFighters.push(*g);
+				blue_fighters.push(*Blue);
+				green_fighters.push(*Green);
 
-				bluePower.erase(b);
-				greenPower.erase(g);
+				blue_power.erase(Blue);
+				green_power.erase(Green);
 			}
-			for(int i = 0; i < minSize; ++i)
-			{
-				int b = blueFighters.front();
-				int g = greenFighters.front();
+
+			for(int i = 0; i < min_scale; ++i) {
+				int Blue = blue_fighters.front();
+				int Green = green_fighters.front();
 			
-				blueFighters.pop();
-				greenFighters.pop();
+				blue_fighters.pop();
+				green_fighters.pop();
 			
-				if(b == g)
+				if(Blue == Green) {
 					continue;
-				if(b < g)
-					greenPower.insert(g - b);
-				else
-					bluePower.insert(b - g);
+				}
+				if(Blue < Green) {
+					green_power.insert(Green - Blue);
+				}
+				else {
+					blue_power.insert(Blue - Green);
+				}
 			}
 		}
 		
-		msii begin;
-		msii end;
+		msii start;
+		msii last;
 
-		if(bluePower.empty() && greenPower.empty())
-		{
+		if(blue_power.empty() && green_power.empty()) {
 			cout << "green and blue died\n";
-			if(testCases)
+			if(test_cases) {
 				cout << "\n";
+			}
 			continue;
 		}
 
-		if(bluePower.empty())
-		{
+		if(blue_power.empty()) {
+
 			cout << "green wins\n";
 
-			end = greenPower.end();
-			begin = greenPower.begin();
+			last = green_power.end();
+			start = green_power.begin();
 		}
-		else
-		{
+		else {
 			cout << "blue wins\n";
 
-			end = bluePower.end();
-			begin = bluePower.begin();
+			last = blue_power.end();
+			start = blue_power.begin();
 		}
 		
-		for(msii i = begin; i != end; ++i)
+		for(msii i = start; i != last; ++i) {
 			cout << *i << "\n";
-		if(testCases)
+		}
+		if(test_cases) {
 			cout << "\n";
+		}
 	}
 
 	return 0;
